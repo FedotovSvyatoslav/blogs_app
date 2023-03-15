@@ -3,10 +3,8 @@ from flask_login import LoginManager, login_user, login_required, logout_user, \
 from flask import Flask, redirect, render_template, request, abort
 
 from data import db_session
-from data.login_form import LoginForm
 from data.news import News, NewsForm
-from data.register_form import RegisterForm
-from data.users import User
+from data.users import User, LoginForm, RegisterForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
