@@ -1,0 +1,15 @@
+{% extends "base_blogs.html" %}
+{% block content %}
+<h1>My Tasks</h1>
+<a href="/jobs/add" class="btn btn-secondary">Add Task</a>
+{% for job in jobs %}
+<div class="col-md6 border rounded">
+    <h2>{{ job.job }}</h2>
+    <p>Work Size: {{ job.work_size }} hours</p>
+    <p>Collaborators: {{ job.collaborators or 'None' }}</p>
+    <p>Status: {{ 'Finished' if job.is_finished else 'In Progress' }}</p>
+    <a href="/jobs/{{ job.id }}" class="btn btn-warning">Edit</a>
+    <a href="/jobs_delete/{{ job.id }}" class="btn btn-danger">Delete</a>
+</div>
+{% endfor %}
+{% endblock %}

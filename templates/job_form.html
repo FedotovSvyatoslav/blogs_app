@@ -1,0 +1,12 @@
+{% extends "base_blogs.html" %}
+{% block content %}
+<h1>{{ title }}</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>{{ form.job.label }}<br>{{ form.job(class="form-control") }}</p>
+    <p>{{ form.work_size.label }}<br>{{ form.work_size(class="form-control") }}</p>
+    <p>{{ form.collaborators.label }}<br>{{ form.collaborators(class="form-control") }}</p>
+    <p>{{ form.is_finished() }} {{ form.is_finished.label }}</p>
+    <p>{{ form.submit(class="btn btn-primary") }}</p>
+</form>
+{% endblock %}

@@ -1,12 +1,23 @@
 import datetime
 import sqlalchemy
 from sqlalchemy import orm
-from .db_session import SqlAlchemyBase
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField
+from wtforms import StringField, TextAreaField, SelectMultipleField
 from wtforms import BooleanField, SubmitField
 from wtforms.validators import DataRequired
+
+from data.db_session import SqlAlchemyBase
+
+
+association_table = sqlalchemy.Table(
+    'association',
+    SqlAlchemyBase.metadata,
+    sqlalchemy.Column('news', sqlalchemy.Integer,
+                      sqlalchemy.ForeignKey('news.id')),
+    sqlalchemy.Column('category', sqlalchemy.Integer,
+                      sqlalchemy.ForeignKey('category.id'))
+)
 
 
 class News(SqlAlchemyBase):
@@ -24,9 +35,13 @@ class News(SqlAlchemyBase):
                                 sqlalchemy.ForeignKey('users.id'))
     user = orm.relationship('User')
 
+    categories = orm.relationship("Category", secondary="association",
+                                  back_populates="news")
+
 
 class NewsForm(FlaskForm):
-    title = StringField('Заголовок', validators=[DataRequired()])
-    content = TextAreaField("Содержание")
-    is_private = BooleanField("Личное")
-    submit = SubmitField('Применить')
+    title = StringField("Title", validators=[DataRequired()])
+    content = TextAreaField("Content")
+    is_private = BooleanField("Private")
+    categories = SelectMultipleField("Categories", coerce=int)
+    submit = SubmitField("Submit")

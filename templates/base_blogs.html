@@ -13,6 +13,8 @@
 <header>
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">Наше приложение</a>
+        <a class="navbar-brand" href="/">Blogs</a>
+        <a class="navbar-brand" href="/jobs">Tasks</a>
         {% if current_user.is_authenticated %}
             <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
         {% else %}
